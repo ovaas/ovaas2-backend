@@ -18,11 +18,24 @@
  
 ### 作成するファイル
 以下を`ovaas`直下に作成し、書き込む
+ - .env
  - Dockerfile
  - docker-compose.yml
  - requirements.txt
- 
-Dockerfile
+
+**.env**
+
+```
+DB_ENGINE="django.db.backends.mysql"
+DB_NAME="django-db"
+DB_USER="django"
+DB_PASSWORD="django"
+DB_HOST="db"
+DB_PORT="3306"
+```
+
+**Dockerfile**
+
 ```dockerfile
 FROM python:3
 ENV PYTHONUNBUFFERED 1
@@ -34,7 +47,7 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 COPY . /code/
 ```
  
-docker-compose.yml
+**docker-compose.yml**
  
 ```yml
 version: '3'
@@ -60,11 +73,12 @@ services:
       - db
 ```
  
-requirements.txt
+**requirements.txt**
  
 ```
 django
 djangorestframework
+django-environ
 mysqlclient
 ```
  
@@ -74,16 +88,23 @@ mysqlclient
 > docker-compose run web django-admin startproject ovaas .
 ```
  
-`ovaas/settings.py`のデータベースを以下に書き換える
+`ovaas/settings.py`に`os`と`dotenv`を追記し、データベースを以下に書き換える。
+
+```python
+import environ
+
+env = environ.Env()
+env.read_env('.env')
+```
 ```python
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django-db',
-        'USER': 'django',
-        'PASSWORD': 'django',
-        'HOST': 'db',
-        'PORT': '3306'
+        'ENGINE': env['DB_ENGINE'],
+        'NAME': env['DB_NAME'],
+        'USER': env['DB_USER'],
+        'PASSWORD': env['DB_PASSWORD'],
+        'HOST': env['DB_HOST'],
+        'PORT': env['DB_PORT'],
     }
 }
 ```
