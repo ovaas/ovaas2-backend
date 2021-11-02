@@ -16,7 +16,7 @@ import datetime
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-# HOST_SQL = os.environ['DBHOST']
+HOST_SQL = os.environ['DBHOST']
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -29,7 +29,7 @@ DEBUG = True
 
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
-# ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']] if 'WEBSITE_HOSTNAME' in os.environ else []
+ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']] if 'WEBSITE_HOSTNAME' in os.environ else []
 
 
 
@@ -76,16 +76,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ovaas_backend_django.wsgi.application'
 
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ovaas2',
-        'USER': 'hokuto@ovaas2-db',
-        'PASSWORD': 'Hoku_0113',
-        'HOST': 'ovaas2-db.mysql.database.azure.com',
-        'PORT': '3306',
+        'NAME': os.environ['SQL_NAME'],
+        'HOST': HOST_SQL + ".mysql.database.azure.com",
+        'USER': os.environ['SQL_USER'] + "@" + HOST_SQL,
+        'PASSWORD': os.environ['SQL_PASSWORD'],
+        'PORT':os.environ['SQL_PORT'],
         'OPTIONS': {'ssl': {'ca': BASE_DIR/'ssl/BaltimoreCyberTrustRoot.crt.pem'}}
     }
 }
