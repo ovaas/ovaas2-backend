@@ -1,101 +1,87 @@
-# Docker+Django+MySQL
- 
-## 実行環境
- - Windows
- - Docker Desktop
- - Docker for Visual Studio Code
- 
-***
- 
-## 環境構築
-### 1.　作業ディレクトリとファイルの作成
- 
-```bash
-> mkdir ovaas
-> cd ovaas
-> code .
+# Django rest Framework + Azure Database for Mysql
+
+## Environment
+- Windows
+- Azure portal
+- Azure CLI
+- VS code
+- Postman
+
+## Set up
+### 1, Create MySQL server from AzureCLI
+
+Go to [Azure portal](https://portal.azure.com/), open Azure Cloud Shell
+and enter the following command
+
+#### Create azure resource group
+```Azure CLI
+> az group create --name <your resource group name> --location japaneast
 ```
- 
-### 作成するファイル
-以下を`ovaas`直下に作成し、書き込む
- - Dockerfile
- - docker-compose.yml
- - requirements.txt
- 
-Dockerfile
-```dockerfile
-FROM python:3
-ENV PYTHONUNBUFFERED 1
-RUN mkdir /code
-WORKDIR /code
-COPY requirements.txt /code/
-RUN pip install --upgrade pip && pip install -r requirements.txt
- 
-COPY . /code/
+
+#### Create Azure Database For mysql
+```Azure CLI
+> az mysql server create --resource-group <your resource group name> --name <servername> --location japaneast --admin-user <admin name> --admin-password <admin password> --sku-name  B_Gen5_1
 ```
- 
-docker-compose.yml
- 
-```yml
-version: '3'
-services:
-  db:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: django-db
-      MYSQL_USER: django
-      MYSQL_PASSWORD: django
-      TZ: 'Asia/Tokyo'
-    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
- 
-  web:
-    build: .
-    command: python3 manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/code
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
+※ "servername" must be unique.
+※　"admin password" must be at least 8 characters and must contain 3 categories of characters: uppercase letters, lowercase letters, numbers, and non-alphanumeric characters.
+※ You can change the price level after "--sku-name". Please check [here](https://docs.microsoft.com/ja-jp/azure/mysql/concepts-pricing-tiers) for details.
+
+#### Setting firewall-rule
+Go to MySQL resource and click "Connection security".
+First, "Set Allow access to Azure services" to Yes.
+Then "add the current client IP address" click to save
+
+### 2, Create  Database
+
+enter the following command
+
+```Azure CLI
+> mysql -h <your mysql server name> -u <your mysql admin name> -p --ssl
+mysql> CREATE DATABASE <dbname>;
+mysql> USE <dbname>;
 ```
- 
-requirements.txt
- 
-```
-django
-djangorestframework
-mysqlclient
-```
- 
-### 2.　プロジェクトの作成
- 
-```
-> docker-compose run web django-admin startproject ovaas .
-```
- 
-`ovaas/settings.py`のデータベースを以下に書き換える
+※ "your mysql server name" and "your mysql admin name" are in the overview page.
+
+### 3, Edit source code
+
+ovaas_backend_django/settings.py
 ```python
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django-db',
-        'USER': 'django',
-        'PASSWORD': 'django',
-        'HOST': 'db',
-        'PORT': '3306'
+        'NAME': '<your dbname>',
+        'USER': '<your mysql admin name>',
+        'PASSWORD': '<your password>',
+        'HOST': '<your mysql server name>',
+        'PORT': '3306',
+        'OPTIONS': {'ssl': {'ca': BASE_DIR/'ssl/BaltimoreCyberTrustRoot.crt.pem'}}
     }
 }
 ```
- 
-コンテナを起動
+
+### 4, makemigrations
+
+If you haven't migrated db, enter the following command:
+```powershell
+> python manage.py makemigrations
+> python manage.py migrate
 ```
-> docker-compose up -d
+
+### 5, Create User
+
+Add the username and password in the user_userinfo table in the Azure CLI.
+```Azure CLI
+mysql> INSERT into user_userinfo (username, password) VALUES ("<your name>", "<your password>")
 ```
- 
-[http://localhost:8000](http://localhost:8000)にアクセスし、起動を確認。
- 
-***
- 
-## 参照記事
-[Django+MySQLの開発環境をdocker-composeで構築する](https://qiita.com/bakupen/items/f23ce3d2325b4491a2dd)
+
+## Send Request
+
+### 1, Run server
+```powershell
+> python manage.py runserver
+```
+
+### 2, Set up Postman and send request
+
+If set as in the example in the image below, it will return a JWT token.
+![postman](.img/postman.png "postman")
