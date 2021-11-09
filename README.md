@@ -55,9 +55,7 @@ DATABASES = {
         'HOST': '<your mysql server name>',
         'PORT': '3306',
         'OPTIONS': {'ssl': {'ca': BASE_DIR/'ssl/BaltimoreCyberTrustRoot.crt.pem'}}
-    }
-}
-```
+
 
 ### 4, makemigrations
 
