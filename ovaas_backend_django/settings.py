@@ -21,9 +21,6 @@ HOST_SQL = os.environ['DBHOST']
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-bk+11t=5(oxm+ly77v*)4$+h)&upn41i9a9y0z^2fx#k)*8(7y'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
