@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class AuthPartsConfig(AppConfig):
+class Apiv1Config(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'auth_parts'
+    name = 'apiv1'
