@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import datetime
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,11 +21,8 @@ HOST_SQL = os.environ['DBHOST']
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-bk+11t=5(oxm+ly77v*)4$+h)&upn41i9a9y0z^2fx#k)*8(7y'
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
@@ -41,13 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'auth_parts',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -73,8 +73,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ovaas_backend_django.wsgi.application'
 
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -82,7 +80,8 @@ DATABASES = {
         'HOST': HOST_SQL + ".mysql.database.azure.com",
         'USER': os.environ['SQL_USER'] + "@" + HOST_SQL,
         'PASSWORD': os.environ['SQL_PASSWORD'],
-        'PORT':os.environ['SQL_PORT']
+        'PORT':os.environ['SQL_PORT'],
+        'OPTIONS': {'ssl': {'ca': BASE_DIR/'ssl/BaltimoreCyberTrustRoot.crt.pem'}}
     }
 }
 

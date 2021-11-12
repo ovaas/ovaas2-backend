@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import AuthUser
+from .views import Login
 
 urlpatterns = [
-    path('',AuthUser.as_view(),name="AuthUser"),
+    path('',Login.as_view(), name='Login'),
 ]
