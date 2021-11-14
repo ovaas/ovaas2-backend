@@ -18,6 +18,7 @@ django-environ = "*"
 Django = "*"
 mysqlclient = "*"
 jwt = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 autopep8 = "*"
