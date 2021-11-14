@@ -1,0 +1,9 @@
+In an attempt to build an AI-ready workforce, Microsoft announced Intelligent Cloud Hub
+which has been launched to empower the next generation of students with AI-ready skills.
+Envisioned as a three-year collaborative program, Intelligent Cloud Hub will support around 100
+institutions with AI infrastructure, course content and curriculum, developer support,
+development tools and give students access to cloud and AI services.
+The company will provide AI development tools and Azure AI services such as
+Microsoft Cognitive Services, Bot Services and Azure Machine Learning.
+Earlier in April this year, the company announced Microsoft Professional
+Program In AI as a learning track open to the public.
