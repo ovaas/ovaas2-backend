@@ -7,6 +7,7 @@ import logging
 
 from auth_parts.models import UserInfo
 
+
 class NormalAuthentication(BaseAuthentication):
     def authenticate(self, request):
         username = request._request.POST.get("username")
@@ -23,8 +24,9 @@ class NormalAuthentication(BaseAuthentication):
     def authenticate_header(self, request):
         pass
 
+
 def generate_jwt(user):
-    timestamp = int(time.time()) + 60*60*24*7
+    timestamp = int(time.time()) + 60 * 60 * 24 * 7
     return jwt.encode(
         {"userid": user.pk, "username": user.username, "exp": timestamp},
         SECRET_KEY)

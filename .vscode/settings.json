@@ -1,0 +1,20 @@
+{
+  // 拡張機能のロード時にターミナルでPython環境をアクティブにする。
+  "python.terminal.activateEnvInCurrentTerminal": true,
+  // 仮想環境のパス。作成した仮想環境を指定する。
+  "python.autoComplete.extraPaths": [
+    "{$workspaceFolder}/.venv/Lib/site-packages",
+  ],
+  // フォーマッターの設定。autopep8 を指定する。
+  "python.formatting.provider": "autopep8",
+  // Lintの設定。flake8、mypy を有効化する。
+  "python.linting.flake8Enabled": true,
+  "python.linting.mypyEnabled": true,
+  "python.linting.pylintEnabled": false,
+  // 以下はお好みで。
+  "editor.formatOnSave": true,
+  "python.analysis.extraPaths": [
+    "{$workspaceFolder}/.venv/Lib/site-packages"
+  ],
+  "python.analysis.completeFunctionParens": true,
+}

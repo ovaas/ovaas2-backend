@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[requires]
+python_version = "3.9"
+
+[scripts]
+start = "python manage.py runserver 0.0.0:8000"
+test = "python -m unittest discover -v"
+format = "autopep8 -ivr ."
+lint = "flake8 --show-source ."
+
+[packages]
+djangorestframework = "*"
+django-environ = "*"
+Django = "*"
+mysqlclient = "*"
+jwt = "*"
+
+[dev-packages]
+autopep8 = "*"
+flake8 = "*"
+mypy = "*"
