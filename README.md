@@ -12,7 +12,7 @@
 GitHub リポジトリをダウンロード
  
 ```bash
-git clone [git@github.com:OVaaS/ovaas2-backend.git](https://github.com/OVaaS/ovaas2-backend.git)
+git clone git@github.com:OVaaS/ovaas2-backend.git
 cd ovaas2-backend
 code .
 ```
