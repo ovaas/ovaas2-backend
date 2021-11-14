@@ -7,6 +7,7 @@ class DemoInfoSerializer(serializers.ModelSerializer):
         model = DemoInfo
         fields = '__all__'
 
+
 class DeployStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = DeployStatus
