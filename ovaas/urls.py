@@ -1,4 +1,4 @@
-"""ovaas_backend_django URL Configuration
+"""ovaas URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -16,7 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from rest_framework.urlpatterns import format_suffix_patterns
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/auth', include('auth_parts.urls')),
+    path('api/v1/', include('api.urls')),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)

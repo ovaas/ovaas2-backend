@@ -14,6 +14,7 @@ lint = "flake8 --show-source ."
 
 [packages]
 djangorestframework = "*"
+djangorestframework-simplejwt = "*"
 django-environ = "*"
 Django = "*"
 mysqlclient = "*"

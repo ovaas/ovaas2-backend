@@ -46,7 +46,7 @@ make build
 
 開発環境を起動
 
-```
+```bash
 make start
 ```
  
@@ -54,12 +54,48 @@ make start
 
 linterで構文チェック
 
-```
+```bash
 pipenv lint
 ```
 
 linterで自動修正
 
-```
+```bash
 pipenv format
+```
+
+## django 管理
+
+**開発環境が起動した状態で実行してください！**
+
+マイグレーションの作成
+
+```bash
+make create-migration
+```
+
+マイグレート
+
+```bash
+make migrate
+```
+
+スーパーユーザーの作成
+
+```bash
+make create-superuser
+```
+
+## 依頼管理
+
+パッケージのインストール
+
+```bash
+pipenv install <package>
+```
+
+パッケージの削除
+
+```bash
+pipenv uninstall <package>
 ```
