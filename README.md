@@ -31,12 +31,6 @@ cp example.env .env
 # Windows
 copy example.env .env
 ```
-
-依頼項目をインストール
-
-```bash
-make install
-```
  
 コンテナをビルド
 
