@@ -2,11 +2,12 @@ from typing import List
 from ninja import Router
 from django.shortcuts import get_object_or_404
 from .models import Demo
+from ninja import Schema
 
 router = Router()
 
 
-class DemoOut(Demo):
+class DemoOut(Schema):
     id: str
     name_ja: str
     name_en: str

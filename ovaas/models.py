@@ -20,9 +20,6 @@ class Demo(models.Model):
     gui_type = models.CharField(max_length=128, choices=GUIType.choices)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    class Config:
-        arbitrary_types_allowed = True
-
 
 class DeployStatus(models.Model):
     status = models.CharField(max_length=10)
