@@ -13,12 +13,13 @@ format = "autopep8 -ivr ."
 lint = "flake8 --show-source ."
 
 [packages]
-djangorestframework = "*"
-djangorestframework-simplejwt = "*"
 django-environ = "*"
 Django = "*"
 mysqlclient = "*"
-jwt = "*"
+django-ninja = "*"
+django-ninja-extra = "*"
+django-ninja-jwt = "*"
+six = "*"
 
 [dev-packages]
 autopep8 = "*"
