@@ -1,6 +1,6 @@
 from typing import List
 from ninja import Router
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, get_list_or_404
 from .models import Demo
 from ninja import Schema
 
@@ -34,5 +34,5 @@ def get_demo(request, demo_id: int):
     tags=["Demo"],
 )
 def list_demo_list(request):
-    demos = Demo.objects.all()
+    demos = get_list_or_404(Demo)
     return demos

@@ -15,7 +15,7 @@ lint = "flake8 --show-source ."
 [packages]
 django-environ = "*"
 Django = "*"
-mysqlclient = "*"
+psycopg2 = "*"
 django-ninja = "*"
 django-ninja-extra = "*"
 django-ninja-jwt = "*"
