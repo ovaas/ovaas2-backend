@@ -26,8 +26,7 @@ jobs:
           cache: 'pipenv'
       
       - name: Install dependencies
-        run: |
-          pipenv install --dev --system
+        run: pipenv install
 
       - name: Building web app
         uses: azure/appservice-build@v2
