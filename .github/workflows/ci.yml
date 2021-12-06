@@ -16,14 +16,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Install pipenv
+        run: pipx install pipenv
+
       - name: Set up Python version
         uses: actions/setup-python@v2
         with:
           python-version: '3.9'
+          cache: 'pipenv'
       
       - name: Install dependencies
         run: |
-          pip install pipenv
           pipenv install --dev --system
 
       - name: Building web app
